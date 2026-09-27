@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lost &amp; Found</title>
+<style>
+:root{--ink:#1b2a3a;--muted:#5d6b7a;--bg:#f2f5f7;--card:#fff;--line:#d9e0e6;--accent:#0e7c7b;--lost:#c2410c;--found:#0e7c7b}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Segoe UI",system-ui,sans-serif}
+a{color:var(--accent)}
+nav{background:var(--ink);padding:12px 20px;display:flex;flex-wrap:wrap;gap:16px;align-items:center}
+nav a{color:#fff;text-decoration:none}nav .brand{font-weight:700;font-size:1.1rem;margin-right:auto}
+main{max-width:920px;margin:24px auto;padding:0 16px}
+h1{margin-top:0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:16px;margin-bottom:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.grid .card{margin:0;display:block;color:inherit;text-decoration:none}
+.grid img,.hero{width:100%;height:150px;object-fit:cover;border-radius:6px;background:var(--line);margin-bottom:8px}
+.tag{display:inline-block;padding:2px 10px;border-radius:99px;color:#fff;font-size:.8rem}
+.tag.lost{background:var(--lost)}.tag.found{background:var(--found)}.tag.st{background:var(--muted)}
+.muted{color:var(--muted);font-size:.9rem}
+form.stack{display:grid;gap:12px}
+input,select,textarea{width:100%;padding:10px;border:1px solid var(--line);border-radius:6px;font:inherit;background:#fff}
+button,.btn{background:var(--accent);color:#fff;border:0;padding:10px 16px;border-radius:6px;font:inherit;cursor:pointer;text-decoration:none;display:inline-block}
+.btn.red{background:var(--lost)}.btn.grey{background:var(--muted)}
+.filters{display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:8px;margin-bottom:16px}
+.flash{background:#e6f4f1;border:1px solid var(--accent);padding:10px 14px;border-radius:6px;margin-bottom:14px}
+table{width:100%;border-collapse:collapse;background:var(--card)}
+th,td{padding:8px;border-bottom:1px solid var(--line);text-align:left;font-size:.92rem}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin-bottom:16px}
+.stats .card{margin:0;text-align:center}.stats b{font-size:1.6rem;display:block}
+@media(max-width:600px){.filters{grid-template-columns:1fr}}
+</style></head><body>
+<nav>
+<a class="brand" href="{{ url_for('index') }}">Lost &amp; Found</a>
+<a href="{{ url_for('report',kind='lost') }}">Report lost</a>
+<a href="{{ url_for('report',kind='found') }}">Report found</a>
+{% if session.uid %}
+<a href="{{ url_for('mine') }}">My activity</a>
+{% if session.role=='admin' %}<a href="{{ url_for('admin') }}">Admin</a>{% endif %}
+<a href="{{ url_for('logout') }}">Log out ({{ session.name }})</a>
+{% else %}<a href="{{ url_for('login') }}">Log in</a><a href="{{ url_for('register') }}">Register</a>{% endif %}
+</nav>
+<main>
+{% for m in get_flashed_messages() %}<div class="flash">{{ m }}</div>{% endfor %}
+{% block body %}{% endblock %}
+</main></body></html>

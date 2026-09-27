@@ -1,0 +1,13 @@
+{% extends "base.html" %}{% block body %}
+<h1>Admin dashboard</h1>
+<div class="stats">{% for k,v in stats.items() %}<div class="card"><b>{{ v }}</b>{{ k }}</div>{% endfor %}</div>
+<h2>Claims</h2>
+<div style="overflow-x:auto"><table><tr><th>Item</th><th>Claimant</th><th>Proof</th><th>Status</th><th></th></tr>
+{% for c in claims %}<tr><td>{{ c.title }}</td><td>{{ c.claimant }}</td><td>{{ c.proof }}</td><td>{{ c.status }}</td>
+<td>{% if c.status=='pending' %}<a class="btn" href="{{ url_for('claim_action',cid=c.id,action='approve') }}">Approve</a> <a class="btn red" href="{{ url_for('claim_action',cid=c.id,action='reject') }}">Reject</a>{% endif %}</td></tr>
+{% else %}<tr><td colspan="5">No claims.</td></tr>{% endfor %}</table></div>
+<h2>All items</h2>
+<div style="overflow-x:auto"><table><tr><th>Title</th><th>Type</th><th>Status</th><th></th></tr>
+{% for i in items %}<tr><td><a href="{{ url_for('item',iid=i.id) }}">{{ i.title }}</a></td><td>{{ i.kind }}</td><td>{{ i.status }}</td>
+<td><a class="btn grey" href="{{ url_for('delete_item',iid=i.id) }}" onclick="return confirm('Delete this item?')">Delete</a></td></tr>{% endfor %}</table></div>
+{% endblock %}

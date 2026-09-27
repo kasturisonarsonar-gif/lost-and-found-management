@@ -1,0 +1,10 @@
+{% extends "base.html" %}{% block body %}
+<div class="card" style="max-width:400px;margin:auto">
+<h1>{{ 'Create account' if mode=='register' else 'Log in' }}</h1>
+<form class="stack" method="post">
+{% if mode=='register' %}<input name="name" placeholder="Full name" required>{% endif %}
+<input name="email" type="email" placeholder="Email" required>
+<input name="password" type="password" placeholder="Password" required>
+<button>{{ 'Create account' if mode=='register' else 'Log in' }}</button></form>
+{% if mode=='login' %}<p class="muted">Admin demo: admin@lf.com / admin123</p>{% endif %}
+</div>{% endblock %}

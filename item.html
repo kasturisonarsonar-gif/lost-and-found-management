@@ -1,0 +1,13 @@
+{% extends "base.html" %}{% block body %}
+<div class="card">
+{% if it.image %}<img class="hero" style="height:260px" src="{{ url_for('static',filename='uploads/'+it.image) }}" alt="">{% endif %}
+<span class="tag {{ it.kind }}">{{ it.kind }}</span> <span class="tag st">{{ it.status }}</span>
+<h1>{{ it.title }}</h1><p>{{ it.description }}</p>
+<p class="muted">{{ it.category }} · {{ it.location }} · {{ it.date }} · posted by {{ it.owner }}</p>
+{% if it.status=='open' and it.user_id!=session.uid %}
+<h3>Is this yours?</h3>
+<form class="stack" method="post"><textarea name="proof" rows="3" placeholder="Describe something only the owner would know" required></textarea><button>Send claim</button></form>
+{% endif %}</div>
+{% if matches %}<h3>Possible matches</h3><div class="grid">
+{% for m in matches %}<a class="card" href="{{ url_for('item',iid=m.id) }}"><span class="tag {{ m.kind }}">{{ m.kind }}</span><h4 style="margin:6px 0">{{ m.title }}</h4><div class="muted">{{ m.location }} · {{ m.date }}</div></a>{% endfor %}</div>{% endif %}
+{% endblock %}

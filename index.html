@@ -1,0 +1,16 @@
+{% extends "base.html" %}{% block body %}
+<h1>Lost and found items</h1>
+<form class="filters" method="get">
+<input name="q" value="{{ q }}" placeholder="Search title, description or place">
+<select name="kind"><option value="">Lost + found</option><option value="lost" {{ 'selected' if kind=='lost' }}>Lost</option><option value="found" {{ 'selected' if kind=='found' }}>Found</option></select>
+<select name="category"><option value="">All categories</option>{% for c in cats %}<option {{ 'selected' if c==cat }}>{{ c }}</option>{% endfor %}</select>
+<button>Search</button></form>
+<div class="grid">
+{% for i in items %}
+<a class="card" href="{{ url_for('item',iid=i.id) }}">
+{% if i.image %}<img src="{{ url_for('static',filename='uploads/'+i.image) }}" alt="">{% else %}<div class="hero" style="height:150px"></div>{% endif %}
+<span class="tag {{ i.kind }}">{{ i.kind }}</span> {% if i.status=='claimed' %}<span class="tag st">claim pending</span>{% endif %}
+<h3 style="margin:6px 0 2px">{{ i.title }}</h3>
+<div class="muted">{{ i.category }} · {{ i.location }} · {{ i.date }}</div></a>
+{% else %}<p>No items yet. Report the first one.</p>{% endfor %}
+</div>{% endblock %}

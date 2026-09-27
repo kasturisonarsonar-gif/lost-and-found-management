@@ -1,0 +1,10 @@
+{% extends "base.html" %}{% block body %}
+<div class="card"><h1>Report a {{ kind }} item</h1>
+<form class="stack" method="post" enctype="multipart/form-data">
+<input name="title" placeholder="Item name (e.g. Black wallet)" required>
+<textarea name="description" rows="3" placeholder="Colour, brand, marks, anything that identifies it" required></textarea>
+<select name="category">{% for c in cats %}<option>{{ c }}</option>{% endfor %}</select>
+<input name="location" placeholder="Where was it {{ kind }}?" required>
+<input name="date" type="date" required>
+<input name="image" type="file" accept="image/*">
+<button>Post report</button></form></div>{% endblock %}

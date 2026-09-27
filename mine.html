@@ -1,0 +1,6 @@
+{% extends "base.html" %}{% block body %}
+<h1>My reports</h1>
+{% for i in items %}<div class="card"><span class="tag {{ i.kind }}">{{ i.kind }}</span> <a href="{{ url_for('item',iid=i.id) }}">{{ i.title }}</a> <span class="muted">· {{ i.status }}</span></div>{% else %}<p>You have not reported anything.</p>{% endfor %}
+<h1>My claims</h1>
+{% for c in claims %}<div class="card">{{ c.title }} <span class="tag st">{{ c.status }}</span></div>{% else %}<p>No claims yet.</p>{% endfor %}
+{% endblock %}

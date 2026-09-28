@@ -9,6 +9,7 @@ app.secret_key = "change-this-secret"
 BASE = os.path.dirname(os.path.abspath(__file__))
 DB = os.path.join(BASE, "lostfound.db")
 UPLOADS = os.path.join(BASE, "static", "uploads")
+os.makedirs(UPLOADS, exist_ok=True)
 CATEGORIES = ["Phone", "Wallet", "Bag", "Keys", "Documents", "Books", "Electronics", "Clothing", "Other"]
 
 def db():
